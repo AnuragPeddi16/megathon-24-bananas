@@ -12,7 +12,7 @@
 <script>
     function sendMessage() {
         const message = document.getElementById("user-input").value;
-        document.getElementById("user-input").value = ""; // Clear input
+        document.getElementById("user-input").value = "";
 
         // Post the message to the server
         fetch("/chat", {
@@ -25,20 +25,7 @@
             const chatDisplay = document.getElementById("chat-display");
             // Append user message and server response with bubble styles
             chatDisplay.innerHTML += `<div class="message user-message"><strong>You:</strong> ${message}</div>`;
-            
-            // Assuming server_response contains a 'text' property
-            if (data.response && data.response.text) {
-                chatDisplay.innerHTML += `<div class="message server-message"><strong>Server:</strong> ${data.response.text}</div>`;
-            } else {
-                chatDisplay.innerHTML += `<div class="message server-message"><strong>Server:</strong> Unknown response format.</div>`;
-            }
-
-            chatDisplay.scrollTop = chatDisplay.scrollHeight; // Scroll to the bottom
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            const chatDisplay = document.getElementById("chat-display");
-            chatDisplay.innerHTML += `<div class="message server-message"><strong>Error:</strong> Could not reach server.</div>`;
+            chatDisplay.innerHTML += `<div class="message server-message"><strong>Server:</strong> ${data.response}</div>`;
             chatDisplay.scrollTop = chatDisplay.scrollHeight; // Scroll to the bottom
         });
     }
