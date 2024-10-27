@@ -1,0 +1,4 @@
+.virtualenv
+megathon_env
+requirements.txt
+code/__pycache__
