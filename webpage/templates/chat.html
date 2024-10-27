@@ -30,7 +30,7 @@
             if (data.response && data.response.text) {
                 chatDisplay.innerHTML += `<div class="message server-message"><strong>Server:</strong> ${data.response.text}</div>`;
             } else {
-                chatDisplay.innerHTML += `<div class="message server-message"><strong>Server:</strong> Unknown response format.</div>`;
+                chatDisplay.innerHTML += `<div class="message server-message"><strong>Server:</strong> Message recieved.</div>`;
             }
 
             chatDisplay.scrollTop = chatDisplay.scrollHeight; // Scroll to the bottom
