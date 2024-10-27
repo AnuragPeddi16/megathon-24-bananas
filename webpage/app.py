@@ -53,7 +53,7 @@ def chat():
     
     if response.status_code == 201:
         server_response = response.json()
-        return jsonify({"response": server_response})  # Forward the server's response
+        return jsonify({"response": {"text": server_response}})
     else:
         return jsonify({"response": "Error contacting server"}), 500
 
