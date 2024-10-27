@@ -44,11 +44,32 @@ X = vectorizer.fit_transform(data['statement'])
 y = data['status']
 
 # Split the dataset into training and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-# Train a model (e.g., using Logistic Regression)
-model = LogisticRegression(max_iter=1000)
-model.fit(X_train, y_train)
+# Define parameter grid for logistic regression
+param_grid = {
+    'C': [0.1, 1, 10],           # Regularization parameter
+    'solver': ['liblinear', 'lbfgs'],  # Solvers for logistic regression
+}
+
+# Initialize GridSearchCV with logistic regression and parameter grid
+grid_search = GridSearchCV(LogisticRegression(max_iter=1000), param_grid, cv=5, scoring='accuracy', n_jobs=-1, verbose=1)
+
+# Fit GridSearchCV with the training data
+grid_search.fit(X_train, y_train)
+
+# Get the best estimator from grid search
+model = grid_search.best_estimator_
+
+# Print the best parameters
+print(f"Best Parameters: {grid_search.best_params_}")
+
+# Predict and evaluate using the best model
+y_pred = model.predict(X_test)
+print("Confusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
 
 # Function to preprocess user input
 def preprocess_user_input(input_text):
